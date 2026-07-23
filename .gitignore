@@ -1,1 +1,13 @@
-node_modules/
+# Credenciales y datos sensibles
+.env
+*.env
+*.pem
+
+# Archivos de salida y reportes temporales
+/tmp/
+result.yaml
+log.txt
+
+# Sistema operativo y editores
+.DS_Store
+*.swp
