@@ -10,9 +10,29 @@ def parse_dependabot_result(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
         try:
             data = yaml.safe_load(f)
-            print("=== 📊 RESUMEN DE DEPENDABOT ===")
-            print(f"Estructura cargada correctamente: {type(data)}")
-            # Aquí procesaremos las métricas y vulnerabilidades encontradas
+            print("\n==========================================")
+            print("         📊 RESUMEN DE DEPENDABOT          ")
+            print("==========================================\n")
+            
+            target = data.get("target", "Desconocido")
+            status = data.get("status", "N/A")
+            updates = data.get("updates", [])
+
+            print(f"🎯 Proyecto Objetivo : {target}")
+            print(f"⚡ Estado de Ejecución: {status.upper()}")
+            print(f"📦 Actualizaciones   : {len(updates)}\n")
+
+            if updates:
+                print("--- Detalle de Paquetes ---")
+                for item in updates:
+                    pkg = item.get("package", "Desconocido")
+                    old_v = item.get("old_version", "?")
+                    new_v = item.get("new_version", "?")
+                    type_up = item.get("type", "routine").upper()
+                    
+                    print(f" • [{type_up}] {pkg}: {old_v} ➡️ {new_v}")
+            print("\n==========================================\n")
+
         except Exception as e:
             print(f"❌ Error al leer el YAML: {e}")
 
